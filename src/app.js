@@ -15,6 +15,7 @@ app.use('/character',require('./routes/character'));
 
 // 404 error handler
 app.use((req, res, next) => {
+  console.log(process.env.TURSO_DATABASE_URL);
   res.status(404).sendFile(__dirname + "/public/404.html");
 });
 
