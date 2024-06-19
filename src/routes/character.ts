@@ -1,28 +1,53 @@
-import { getConnection } from "typeorm";
+import { AppDataSource } from '../../app';
 import { Character } from '../entity/Character';
 import { Router, Request, Response } from "express";
 
 
 const router = Router();
 
-import { createClient } from "@libsql/client";
+// https://orkhan.gitbook.io/typeorm/docs/example-with-express
+const characterRepository = AppDataSource.getRepository(Character)
 
-export const turso = createClient({
-    url: process.env.TURSO_DATABASE_URL as string,
-    authToken: process.env.TURSO_AUTH_TOKEN,
-});
-
-// Get all characters
+// http://localhost:3000/character/
 router.get('/', async (req: Request, res: Response) => {
-    try {
-        const connection = getConnection();
-        const characterRepository = connection.getRepository(Character);
-        const characters = await characterRepository.find();
-        res.json(characters);
-    } catch (error) {
-        console.error("Database query error:", error);
-        res.status(500).send("Internal Server Error");
-    }
+    const allCharacters = await characterRepository.find();
+    res.json(allCharacters)
 });
+
+// http://localhost:3000/character/1
+router.get('/:id', async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const characterId = await characterRepository.findOneBy({
+        id: parseInt(id),
+    })
+
+    if (!characterId) {
+        return res.status(404).json({ message: `Character ${id} not found` });
+    }
+    res.json(characterId)
+});
+
+// http://localhost:3000/character/add
+router.post("/add", async function (req: Request, res: Response) {
+    const nCharacter = await characterRepository.create(req.body)
+    const results = await characterRepository.save(nCharacter)
+    return res.send(results)
+});
+
+// http://localhost:3000/character/modify/1
+router.put("/modify/:id", async function (req: Request, res: Response) {
+    const nCharacter = await characterRepository.findOneBy({
+        id: parseInt(req.params.id),
+    })
+    AppDataSource.getRepository(Character).merge(nCharacter, req.body)
+    const results = await characterRepository.save(nCharacter)
+    return res.send(results)
+});
+
+// http://localhost:3000/character/delete/1
+router.delete("/delete/:id", async function (req: Request, res: Response) {
+    const results = await characterRepository.delete(req.params.id)
+    return res.send(results)
+})
 
 module.exports = router;

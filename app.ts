@@ -2,9 +2,12 @@ const express = require("express");
 require('dotenv').config();
 
 import "reflect-metadata";
-// import { Request, Response } from "express";
-import AppDataSource from "./src/ormconfig";
+import { MysqlDataSource } from "./src/data-source.";
 
+
+// Use mysql in this case
+// https://orkhan.gitbook.io/typeorm/docs/data-source
+export const AppDataSource = MysqlDataSource;
 
 const app = express();
 const port = process.env.PORT || 3000; // Use the PORT from environment variables if available
