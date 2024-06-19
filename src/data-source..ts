@@ -1,5 +1,5 @@
 import { DataSource } from "typeorm";
-import { Character } from "./entity/Character";
+import { Character } from "./entity/character.entity.";
 import { config } from "dotenv";
 import { CreateCharacter1718798622821 } from "./migration/1718798622821-CreateCharacter";
 

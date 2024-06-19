@@ -7,11 +7,9 @@ export class CreateCharacter1718798622821 implements MigrationInterface {
             name: "character",
             columns: [
                 {
-                    name: "id",
-                    type: "int",
                     isPrimary: true,
-                    isGenerated: true,
-                    generationStrategy: "increment"
+                    name: 'id',
+                    type: 'uuid',
                 },
                 {
                     name: "name",

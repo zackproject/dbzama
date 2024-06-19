@@ -1,5 +1,5 @@
 import { AppDataSource } from '../../app';
-import { Character } from '../entity/Character';
+import { Character } from '../entity/character.entity.';
 import { Router, Request, Response } from "express";
 
 
@@ -18,7 +18,7 @@ router.get('/', async (req: Request, res: Response) => {
 router.get('/:id', async (req: Request, res: Response) => {
     const { id } = req.params;
     const characterId = await characterRepository.findOneBy({
-        id: parseInt(id),
+        id: id,
     })
 
     if (!characterId) {
@@ -37,7 +37,7 @@ router.post("/add", async function (req: Request, res: Response) {
 // http://localhost:3000/character/modify/1
 router.put("/modify/:id", async function (req: Request, res: Response) {
     const nCharacter = await characterRepository.findOneBy({
-        id: parseInt(req.params.id),
+        id: req.params.id,
     })
     AppDataSource.getRepository(Character).merge(nCharacter, req.body)
     const results = await characterRepository.save(nCharacter)
