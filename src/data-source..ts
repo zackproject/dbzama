@@ -1,7 +1,7 @@
 import { DataSource } from "typeorm";
-import { Character } from "./entity/character.entity.";
+import { Character } from "./entities/character.entity";
 import { config } from "dotenv";
-import { CreateCharacter1718798622821 } from "./migration/1718798622821-CreateCharacter";
+import { CreateCharacter1718798622821 } from "./migrations/create/1718798622821-CreateCharacter";
 
 config(); // Load environment variables
 
@@ -17,5 +17,5 @@ export const MysqlDataSource = new DataSource({
   logging: true, // Habilitar el registro de consultas
   entities: [Character], // Tus entidades
   subscribers: [], // Suscriptores (vacío si no tienes)
-  migrations: [], // Migraciones (vacío si no tienes)
+  migrations: [CreateCharacter1718798622821], // Migraciones (vacío si no tienes)
 });

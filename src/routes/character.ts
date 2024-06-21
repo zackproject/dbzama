@@ -1,7 +1,6 @@
 import { AppDataSource } from '../../app';
-import { Character } from '../entity/character.entity.';
+import { Character } from '../entities/character.entity';
 import { Router, Request, Response } from "express";
-
 
 const router = Router();
 
@@ -12,6 +11,23 @@ const characterRepository = AppDataSource.getRepository(Character)
 router.get('/', async (req: Request, res: Response) => {
     const allCharacters = await characterRepository.find();
     res.json(allCharacters)
+});
+
+router.get('/serie/:serie', async (req: Request, res: Response) => {
+    const { serie } = req.params;
+    const characterSerie = await characterRepository.findBy({
+        serie: serie,
+    })
+    res.json(characterSerie)
+});
+
+// http://localhost:3000/character/series
+router.get('/series', async (req: Request, res: Response) => {
+    const characterSerie = await characterRepository.createQueryBuilder('character')
+        .select('DISTINCT character.serie', 'serie')
+        .getRawMany();
+    const uniqueSeries = characterSerie.map(item => item.serie);
+    res.json(uniqueSeries)
 });
 
 // http://localhost:3000/character/1
@@ -33,6 +49,7 @@ router.post("/add", async function (req: Request, res: Response) {
     const results = await characterRepository.save(nCharacter)
     return res.send(results)
 });
+
 
 // http://localhost:3000/character/modify/1
 router.put("/modify/:id", async function (req: Request, res: Response) {
