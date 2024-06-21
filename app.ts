@@ -3,7 +3,8 @@ require('dotenv').config();
 
 import "reflect-metadata";
 import { MysqlDataSource } from "./src/data-source.";
-
+import swaggerUi from "swagger-ui-express";
+import YAML from "yamljs"
 
 // Use mysql in this case
 // https://orkhan.gitbook.io/typeorm/docs/data-source
@@ -15,13 +16,21 @@ const port = process.env.PORT || 3000; // Use the PORT from environment variable
 AppDataSource.initialize().then(() => {
   app.use(express.json());
 
-
   app.use(express.urlencoded({ extended: true }));
+
+
+  // Configuración de Swagger UI en la ruta /docs
+  app.get('/', (req, res) => res.redirect('/docs'));
+  // Configura Swagger UI para leer el archivo OpenAPI YAML
+  const swaggerDocument = YAML.load('./openapi.yaml');
+
+  app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 
   // Serve static files from the 'public' directory
   app.use(express.static(__dirname + "/public"));
 
-  app.use('/character', require('./src/routes/character.ts'));
+  app.use('/characters', require('./src/routes/character.ts'));
 
   // 404 error handler
   app.use((req, res, next) => {
