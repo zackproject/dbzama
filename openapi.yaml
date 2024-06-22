@@ -1,0 +1,132 @@
+openapi: 3.0.0
+info:
+  title: Character API
+  version: 1.0.0
+tags:
+  - name: character
+    description: Everything about your Pets
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io
+paths:
+  /characters:
+    get:
+      tags:
+        - character
+      summary: Get a character
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Character'
+    post:
+      tags:
+        - character
+      summary: Add character
+      description: Add character
+      operationId: id
+      requestBody:
+        description: Create a new pet in the store
+        content:
+          application/json:
+            schema:
+               allOf:
+                - $ref: '#/components/schemas/Character'
+               required:
+                  - name
+                  - image
+                  - serie
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Character'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Character'
+        '400':
+          description: 400 Bad Request Invalid argument
+  /characters/{id}:
+    get:
+      tags:
+        - character
+      summary: Get a character by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Character'
+        '404':
+          description: Character not found
+    put:
+      tags:
+        - character
+      summary: Update a character by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Character'
+      responses:
+        '200':
+          description: Successful update
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Character'
+        '404':
+          description: Character not found
+    delete:
+      tags:
+        - character
+      summary: Delete a character by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Successful deletion
+        '404':
+          description: Character not found
+components:
+  schemas:
+    Character:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "04b02014-2924-4c1d-8ad9-c3723e5258da"
+        name:
+          type: string
+          example: Shoto Todoroki
+        image:
+          type: string
+          example: https://i.imgur.com/bRffuCj.png
+        serie:
+          type: string
+          example: Boku No Hero
