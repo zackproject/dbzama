@@ -15,7 +15,7 @@ const port = process.env.PORT || 3000; // Use the PORT from environment variable
 
 AppDataSource.initialize().then(() => {
   app.use(express.json());
-
+  app.disable("x-powered-by")
   app.use(express.urlencoded({ extended: true }));
 
 
