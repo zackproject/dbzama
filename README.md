@@ -4,9 +4,13 @@
 npm install
 
 # Run project
-nodemon app
+## Development
+npm run dev
+## Production
+npm install & npm run buid
 
 # Create Migration
 typeorm migration:create <CreateCharacter>
 
 typeorm migration:run <CreateCharacter>
+
