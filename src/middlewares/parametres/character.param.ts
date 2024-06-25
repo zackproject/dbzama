@@ -3,8 +3,6 @@ import { AppDataSource } from "../../../app";
 import { Character } from "../../entities/character.entity";
 import { Request, Response } from "express";
 
-
-
 // https://orkhan.gitbook.io/typeorm/docs/example-with-express
 const characterRepository = AppDataSource.getRepository(Character)
 

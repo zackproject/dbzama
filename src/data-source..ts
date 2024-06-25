@@ -5,9 +5,11 @@ import { CreateCharacter1718798622821 } from "./migrations/create/1718798622821-
 
 config(); // Load environment variables
 
+type DBLANG = "postgres" | "mysql" | "sqlite";
+
 // https://orkhan.gitbook.io/typeorm/docs/data-source
-export const MysqlDataSource = new DataSource({
-  type: "mysql",
+export const SqlDataSource = new DataSource({
+  type: process.env.DB_TYPE as DBLANG,
   host: process.env.DB_HOST,
   port: parseInt(process.env.DB_PORT),
   username: process.env.DB_USERNAME,
