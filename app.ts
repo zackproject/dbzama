@@ -4,8 +4,8 @@ require('dotenv').config();
 import "reflect-metadata";
 import { SqlDataSource } from "./src/data-source";
 import rateLimit from 'express-rate-limit';
-import swaggerUi from "swagger-ui-express";
-import YAML from "yamljs"
+//import swaggerUi from "swagger-ui-express";
+//import YAML from "yamljs"
 import cors from 'cors';
 import dotenv from 'dotenv';
 
@@ -48,9 +48,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors(corsOptions));
 
 // DEFAULT URL Swagger /docs CRUD
-app.get('/', (req, res) => res.redirect('/docs'));
-const swaggerDocument = YAML.load('./openapi.yaml');
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+//app.get('/', (req, res) => res.redirect('/docs'));
+//const swaggerDocument = YAML.load('openapi.yaml');
+//app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
 
 // Serve static files from the 'public' directory
 app.use(express.static(__dirname + "/public"));
