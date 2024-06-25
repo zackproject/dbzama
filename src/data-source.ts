@@ -6,7 +6,7 @@ import { CreateCharacter1718798622821 } from "./migrations/create/1718798622821-
 config(); // Load environment variables
 
 // type DBLANG = "postgres" | "mysql" | "sqlite";
-
+///
 // https://orkhan.gitbook.io/typeorm/docs/data-source
 export const SqlDataSource = new DataSource({
   type: "postgres",
