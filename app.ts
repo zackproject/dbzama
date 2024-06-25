@@ -2,7 +2,7 @@ import express from "express";
 require('dotenv').config();
 
 import "reflect-metadata";
-import { SqlDataSource } from "./src/data-source.";
+import { SqlDataSource } from "./src/data-source";
 import rateLimit from 'express-rate-limit';
 import swaggerUi from "swagger-ui-express";
 import YAML from "yamljs"
