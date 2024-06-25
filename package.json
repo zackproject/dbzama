@@ -1,11 +1,13 @@
 {
     "name": "dbsama",
     "version": "1.0.0",
-    "description": "Si instalas globalmente\r npm install -g nodemon",
+    "description": "",
     "main": "app.ts",
     "scripts": {
-        "start": "ts-node src/app.ts",
-        "dev": "nodemon src/app.ts"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "npx tsc",
+        "start": "node dist/app.js",
+        "dev": "nodemon app.ts"
     },
     "keywords": [],
     "author": "",
