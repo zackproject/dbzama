@@ -8,6 +8,10 @@
       {
         "src": "src/routes/character.ts",
         "use": "@vercel/node"
+      },
+      {
+        "src": "src/data-source.ts",
+        "use": "@vercel/node"
       }
     ],
     "routes": [
