@@ -1,14 +1,27 @@
 {
     "version": "2.4.2",
     "compilerOptions": {
-        "lib": ["es5", "es6"],
+        "lib": [
+            "es5",
+            "es6"
+        ],
         "target": "es6",
         "esModuleInterop": true,
         "module": "commonjs",
+        /* dist: https://blog.logrocket.com/how-to-set-up-node-typescript-express/#running-typescript-node-ts-node*/
+        "outDir": "./dist",
         "moduleResolution": "node",
+        "forceConsistentCasingInFileNames": true,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
-        "sourceMap": true
+        "sourceMap": true,
+        "skipLibCheck": true, /* Skip type checking all .d.ts files. */
+        "baseUrl": "./",
+        "paths": {
+            "*": [
+                "src/*"
+            ]
+        },
     },
     "exclude": [
         "node_modules"

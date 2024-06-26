@@ -1,11 +1,13 @@
 {
     "name": "dbsama",
     "version": "1.0.0",
-    "description": "Si instalas globalmente\r npm install -g nodemon",
+    "description": "",
     "main": "app.ts",
     "scripts": {
-        "start": "ts-node src/app.ts",
-        "dev": "nodemon src/app.ts"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "tsc",
+        "start": "node dist/app.js",
+        "dev": "nodemon app.ts"
     },
     "keywords": [],
     "author": "",
@@ -13,19 +15,25 @@
     "dependencies": {
         "@types/mysql": "^2.15.26",
         "body-parser": "^1.20.2",
+        "cors": "^2.8.5",
         "dotenv": "^16.4.5",
         "express": "^4.19.2",
+        "express-rate-limit": "^7.3.1",
         "mysql": "^2.18.1",
+        "pg": "^8.12.0",
+        "rate": "^0.1.1",
         "reflect-metadata": "^0.2.2",
         "swagger-ui-express": "^5.0.1",
         "typeorm": "^0.3.20",
+        "typescript": "^5.5.2",
         "yamljs": "^0.3.0"
     },
     "devDependencies": {
+        "@types/cors": "^2.8.17",
         "@types/express": "^4.17.21",
         "@types/node": "^20.14.2",
         "@types/swagger-ui-express": "^4.1.6",
-        "ts-node": "^10.9.2",
-        "typescript": "^5.4.5"
+        "@types/yamljs": "^0.2.34",
+        "ts-node": "^10.9.2"
     }
 }
