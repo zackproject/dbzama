@@ -1,30 +1,17 @@
 import express from "express";
 import "reflect-metadata";
-import rateLimit from 'express-rate-limit';
 import swaggerUi from "swagger-ui-express";
 import YAML from "yamljs"
 import cors from 'cors';
 import dotenv from 'dotenv';
 import characterRouter from "./src/routes/character"
+import { corsOptions, limiter } from "./src/utils/utils"
 
 // Cargar variables de entorno desde un archivo .env
 dotenv.config();
-// https://orkhan.gitbook.io/typeorm/docs/data-source
+
 const app = express();
 const port = process.env.PORT || 3000;
-
-const corsOptions = {
-  // ERROR CORS https://youtu.be/-9d3KhCqOtU?feature=shared&t=4752
-  origin: process.env.ORIGIN.split(" "),
-  optionsSuccessStatus: 200,
-};
-
-// https://youtu.be/9jK-NcRmVcw?si=cD5RYnpfbjaI-wA0
-const limiter = rateLimit({
-  windowMs: 5 * 60 * 1000, // minutes 
-  max: parseInt(process.env.LIMIT_REQUEST), // max request by minutes
-  message: 'To many request, try after 5 minutes',
-});
 
 // limits request server: 
 app.use(limiter);
