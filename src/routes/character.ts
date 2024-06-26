@@ -1,5 +1,5 @@
 
-import * as param from "../middlewares/parametres/character.param";
+import { CharacterControler } from "./../controler/character"
 import { Router, Request, Response } from "express";
 
 const characterRouter = Router()
@@ -13,25 +13,25 @@ characterRouter.use((req: Request, res: Response, next) => {
 // router.get("/fill", param.fillDefaultHandler)
 
 // GET /characters
-characterRouter.get('/', param.getCharactersHandler);
+characterRouter.get('/', CharacterControler.getAll);
 
 // GET /characters/Haikyuu
-characterRouter.get('/series/:serie', param.getCharactersBySerieHandler);
+characterRouter.get('/series/:serie', CharacterControler.getBySerie);
 
 // GET /characters/series
-characterRouter.get('/series', param.getAllSeriesHandler);
+characterRouter.get('/series', CharacterControler.getAllSeries);
 
 // GET /characters/1
-characterRouter.get('/:id', param.getCharacterByIdHandler);
+characterRouter.get('/:id', CharacterControler.getById);
 
 // POST /characters
-characterRouter.post("/", param.postCharacterHandler);
+characterRouter.post("/", CharacterControler.post);
 
 // PUT /characters/1
-characterRouter.put("/:id", param.modifyCharacterHandler);
+characterRouter.put("/:id", CharacterControler.modify);
 
 // DELETE /characters/1
-characterRouter.delete("/:id", param.deleteCharacterHandler);
+characterRouter.delete("/:id", CharacterControler.delete);
 
 
 export default characterRouter
