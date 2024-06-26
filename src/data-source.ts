@@ -8,7 +8,7 @@ config(); // Load environment variables
 type DBLANG = "postgres" | "mysql" | "sqlite";
 
 // https://orkhan.gitbook.io/typeorm/docs/data-source
-export const SqlDataSource = new DataSource({
+const AppDataSource = new DataSource({
   type: process.env.DB_TYPE as DBLANG,
   host: process.env.DB_HOST,
   port: parseInt(process.env.DB_PORT),
@@ -21,3 +21,14 @@ export const SqlDataSource = new DataSource({
   subscribers: [], // Suscriptores (vacío si no tienes)
   migrations: [CreateCharacter1718798622821], // Migraciones (vacío si no tienes)
 });
+
+// https://github.com/typeorm/typeorm/issues/8758#issuecomment-1071989997
+AppDataSource.initialize()
+  .then(() => {
+    console.log("Data Source has been initialized!");
+  })
+  .catch((err) => {
+    console.error("Error during Data Source initialization", err);
+  });
+
+export default AppDataSource;

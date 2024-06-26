@@ -10,7 +10,4 @@ npm run dev
 npm install & npm run buid
 
 # Create Migration
-typeorm migration:create <CreateCharacter>
-
-typeorm migration:run <CreateCharacter>
-
+typeorm migration:create `<CreateCharacter>`

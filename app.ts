@@ -1,17 +1,15 @@
 import express from "express";
 import "reflect-metadata";
-import { SqlDataSource } from "./src/data-source";
 import rateLimit from 'express-rate-limit';
 import swaggerUi from "swagger-ui-express";
 import YAML from "yamljs"
 import cors from 'cors';
 import dotenv from 'dotenv';
+import characterRouter from "./src/routes/character"
 
 // Cargar variables de entorno desde un archivo .env
 dotenv.config();
 // https://orkhan.gitbook.io/typeorm/docs/data-source
-export const AppDataSource = SqlDataSource;
-
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -27,14 +25,6 @@ const limiter = rateLimit({
   max: parseInt(process.env.LIMIT_REQUEST), // max request by minutes
   message: 'To many request, try after 5 minutes',
 });
-
-AppDataSource.initialize()
-  .then(() => {
-    console.log("Data Source has been initialized!");
-  })
-  .catch((err) => {
-    console.error("Error during Data Source initialization", err);
-  });
 
 // limits request server: 
 app.use(limiter);
@@ -53,7 +43,7 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 // Serve static files from the 'public' directory
 app.use(express.static(__dirname + "/public"));
 
-app.use('/characters', require('./src/routes/character.ts'));
+app.use('/characters', characterRouter);
 
 // 404 error handler
 app.use((req, res, next) => {
