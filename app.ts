@@ -15,7 +15,7 @@ const port = process.env.PORT || 3000;
 
 const corsOptions = {
   // ERROR CORS https://youtu.be/-9d3KhCqOtU?feature=shared&t=4752
-  origin: process.env.ORIGIN.split(" "),
+  origin: "*", // process.env.ORIGIN.split(" "),
   optionsSuccessStatus: 200,
 };
 
